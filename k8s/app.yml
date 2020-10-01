@@ -1,0 +1,49 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: dopi-home
+  labels:
+    app: dopi-home
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dopi-home
+  template:
+    metadata:
+      labels:
+        app: dopi-home
+    spec:
+      containers:
+      - name: dopi-home
+        image: cretzel/dopi-home:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 80
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: dopi-home
+spec:
+  selector:
+    app: dopi-home
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dopi-home-ingress
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /
+            backend:
+              serviceName: dopi-home
+              servicePort: 80
+
+
