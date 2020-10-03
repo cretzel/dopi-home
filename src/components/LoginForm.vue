@@ -2,11 +2,11 @@
   <div class="container">
     <div>
       <label>Username</label>
-      <input type="text" v-model="username">
+      <input type="text" v-model="username" v-on:keyup.enter="login">
     </div>
     <div>
       <label>Password</label>
-      <input type="password" v-model="password">
+      <input type="password" v-model="password" v-on:keyup.enter="login">
     </div>
     <button v-on:click="login" class="button-primary">Login</button>
     <div class="error"><label>{{ message }}</label></div>

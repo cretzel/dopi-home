@@ -28,4 +28,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 export DOCKER_CLI_EXPERIMENTAL=enabled
 docker buildx create
 docker buildx use <name>
+
+docker buildx build --platform linux/amd64,linux/arm64,linux/arm/v7 -t cretzel/dopi-home --push .
+
 ```
