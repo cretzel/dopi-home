@@ -1,29 +1,33 @@
 <template>
   <div id="app">
-    <div class="container">
-      <div class="row">
-        <div class="ten columns">
-          <div style="display:inline-block;"></div>
-        </div>
-        <div class="two columns"><div v-if="store.loggedIn">{{ store.user.username }}</div>
-        </div>
-      </div>
-    </div>
+    <header class="row">
+      <span class="logo col-sm-1">Dopi</span>
+      <span class="col-sm-8"></span>
+      <span class="col-sm-2 username" v-if="store.loggedIn">{{ store.user.username }}</span>
+    </header>
 
-    <Welcome msg="Welcome to Dopi"/>
-    <LoginForm></LoginForm>
+    <div class="row" id="doc-wrapper">
+
+      <main class="col-sm-12 col-md-12 col-lg-12" id="doc-content">
+        <div class="fluid">
+          <h1>Welcome to Dopi</h1>
+
+          <LoginForm></LoginForm>
+
+        </div>
+      </main>
+
+    </div>
   </div>
 </template>
 
 <script>
-import Welcome from './components/Welcome.vue'
 import LoginForm from './components/LoginForm.vue'
 import store from './store/Store.js'
 
 export default {
   name: 'App',
   components: {
-    Welcome: Welcome,
     LoginForm
   },
   data: function () {
@@ -36,12 +40,6 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
 }
-
 </style>

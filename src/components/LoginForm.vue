@@ -1,21 +1,25 @@
 <template>
-  <div class="container" v-if="!store.loggedIn">
-    <div>
-      <label>Username</label>
-      <input type="text" v-model="username" v-on:keyup.enter="login">
+  <div class="login-form">
+
+    <div class="container" v-if="!store.loggedIn">
+      <div>
+        <label>Username</label>
+        <input type="text" v-model="username" v-on:keyup.enter="login">
+      </div>
+      <div>
+        <label>Password</label>
+        <input type="password" v-model="password" v-on:keyup.enter="login">
+      </div>
+      <button v-on:click="login" class="primary">Login</button>
+      <div class="error"><label>{{ errorMessage }}</label></div>
+      <div><label>{{ successMessage }}</label></div>
     </div>
-    <div>
-      <label>Password</label>
-      <input type="password" v-model="password" v-on:keyup.enter="login">
+
+    <div class="container" v-else>
+      <div><strong>Your are logged in as {{ store.user.username }}</strong></div>
+      <br/>
+      <button v-on:click="logout" class="primary">Logout</button>
     </div>
-    <button v-on:click="login" class="button-primary">Login</button>
-    <div class="error"><label>{{ errorMessage }}</label></div>
-    <div><label>{{ successMessage }}</label></div>
-  </div>
-  <div class="container" v-else>
-    <div><strong>Your are logged in as {{ store.user.username }}</strong></div>
-    <br/>
-    <button v-on:click="logout" class="button-primary">Logout</button>
   </div>
 </template>
 
@@ -39,8 +43,8 @@ export default {
   methods: {
     login: async function() {
       this.errorMessage = '';
-      this.successMessage = ''
-      let user = await loginService.login(this.username, this.password)
+      this.successMessage = '';
+      let user = await loginService.login(this.username, this.password);
       if (!user) {
         this.errorMessage = 'Login failed'
       } else {
@@ -48,7 +52,9 @@ export default {
       }
     },
     logout: async function() {
-      store.setUser(null)
+      this.errorMessage = '';
+      this.successMessage = '';
+      store.setUser(null);
     }
   }
 }
