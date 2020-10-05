@@ -53,8 +53,8 @@ class LoginService {
         }
     }
 
-    async getUser(username) {
-        const response = await fetch("/api/user/users/" + username, {
+    async getUser() {
+        const response = await fetch("/api/user/users/me" , {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'

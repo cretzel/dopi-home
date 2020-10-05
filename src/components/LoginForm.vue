@@ -61,7 +61,7 @@ export default {
       await loginService.logout();
     },
     getUser: async function() {
-      this.userDetails = await loginService.getUser(store.userInfo.username);
+      this.userDetails = await loginService.getUser();
     },
     refreshToken: async function() {
       await loginService.refreshToken();
