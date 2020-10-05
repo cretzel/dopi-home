@@ -16,9 +16,12 @@
     </div>
 
     <div class="container" v-else>
-      <div><strong>Your are logged in as {{ store.user.username }}</strong></div>
+      <div><strong>Your are logged in as {{ store.userInfo.username }}</strong></div>
       <br/>
       <button v-on:click="logout" class="primary">Logout</button>
+      <button v-on:click="getUser" class="primary">Fetch User Details</button>
+      <button v-on:click="refreshToken" class="primary">Refresh Token</button>
+      <div v-if="userDetails">{{ userDetails }}</div>
     </div>
   </div>
 </template>
@@ -37,6 +40,7 @@ export default {
       password: '',
       errorMessage: '',
       successMessage: '',
+      userDetails: '',
       store: store
     }
   },
@@ -54,7 +58,13 @@ export default {
     logout: async function() {
       this.errorMessage = '';
       this.successMessage = '';
-      store.setUser(null);
+      await loginService.logout();
+    },
+    getUser: async function() {
+      this.userDetails = await loginService.getUser(store.userInfo.username);
+    },
+    refreshToken: async function() {
+      await loginService.refreshToken();
     }
   }
 }

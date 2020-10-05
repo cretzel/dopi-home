@@ -3,7 +3,7 @@
     <header class="row">
       <span class="logo col-sm-1">Dopi</span>
       <span class="col-sm-8"></span>
-      <span class="col-sm-2 username" v-if="store.loggedIn">{{ store.user.username }}</span>
+      <span class="col-sm-2 username" v-if="store.loggedIn">{{ store.userInfo.username }}</span>
     </header>
 
     <div class="row" id="doc-wrapper">
@@ -24,6 +24,7 @@
 <script>
 import LoginForm from './components/LoginForm.vue'
 import store from './store/Store.js'
+import loginService from './service/LoginService.js'
 
 export default {
   name: 'App',
@@ -34,6 +35,9 @@ export default {
     return {
       store: store
     }
+  },
+  created: function () {
+    loginService.startTokenRefresher();
   }
 }
 </script>
