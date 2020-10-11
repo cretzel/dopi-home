@@ -70,17 +70,23 @@ class LoginService {
         }
     }
 
+
     async startTokenRefresher() {
         this.refreshToken();
+        this.tokenRefresher();
+    }
 
+    async tokenRefresher() {
         const _this = this;
         window.setTimeout(function() {
             if(store.loggedIn) {
                 _this.refreshToken();
             }
-            _this.startTokenRefresher();
-        },  20 * 1000)
+            _this.tokenRefresher();
+        },  30 * 1000)
+
     }
+
 }
 
 export default new LoginService()
